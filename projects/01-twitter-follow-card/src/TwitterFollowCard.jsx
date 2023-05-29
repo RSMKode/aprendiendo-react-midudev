@@ -16,7 +16,7 @@ export function TwitterFollowCard ({children, userName = 'unknown',initialIsFoll
       <article className="tw-followCard">
         <header className="tw-followCard-header">
           <img
-            className='tw-followCard-avatar'
+            className="tw-followCard-avatar"
             src={`https://unavatar.io/${userName}`}
             alt="El avatar de roger"
           />
