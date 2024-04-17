@@ -2,6 +2,8 @@
 import { useState } from "react";
 import "./App.css";
 
+const TURNS = ["✕", "◯"]
+
 function Square({ value, onSquareClick }) {
   return (
     <button className="square" onClick={onSquareClick}>
@@ -33,14 +35,15 @@ function Board({ xIsNext, squares, onPlay }) {
       [4, 4],
     ];
 
+
     const nextSquares = squares.slice();
-    xIsNext ? (nextSquares[i] = "X") : (nextSquares[i] = "O");
+    xIsNext ? (nextSquares[i] = TURNS[0]) : (nextSquares[i] = TURNS[1]);
     onPlay(nextSquares, locations[i]);
   };
 
   const winner = calculateWinner(squares);
   let status;
-  status = winner ? `Ganador: ${winner}` : `Turno: ${xIsNext ? "X" : "O"}`;
+  status = winner ? `Ganador: ${winner}` : `Turno: ${xIsNext ? TURNS[0] : TURNS[1]}`;
   if (!squares.includes(null) && !winner) status = "Empate";
   return (
     <>
