@@ -31,7 +31,7 @@ function App () {
             <span className='text-xl'>Buscar película</span>
             <input
               type='text' placeholder='Avengers, Star Wars...'
-              className='p-1 rounded'
+              className='px-2 py-1 rounded'
             />
           </label>
           <button className='px-4 py-1 text-white transition-all rounded shadow-md active:scale-95 bg-slate-700 hover:bg-rose-800 w-fit'>Buscar</button>
