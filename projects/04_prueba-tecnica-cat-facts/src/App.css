@@ -1,0 +1,13 @@
+body, main{
+  display: flex;
+  flex-direction: column;
+  gap:1rem;
+  place-items: center;
+  /* place-content: center; */
+  height: 100vh;
+  padding: 1rem;
+}
+
+h1{
+  text-align: center;
+}
