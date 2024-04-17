@@ -7,7 +7,7 @@ const [enabled, setEnabled] = useState(false)
 const [position, setPosition] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
-    console.log(enabled)
+    console.log('effect',enabled)
     const handleMouseMove = (event) => {
       const { clientX, clientY } = event
       console.log('handleMove',clientX, clientY)
