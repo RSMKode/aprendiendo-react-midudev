@@ -26,10 +26,10 @@ const FollowMouse = () => {
       //getEventListeners(window, 'mousemove') en la consola del navegador para controlar las suscripciones a los eventos
     }
 
-    //cleanup
+    //cleanup:
     // -> cuando el componente se desmonta
-    // -> cuando cambian las dependencias, se ejecuta el cleanup de la ejecución anterior
-    return () => {
+    // -> cuando cambian las dependencias, antes de ejecutar el efecto de nuevo
+    return () => { // cleanup method
       window.removeEventListener("mousemove", handleMouseMove);
     };
 
@@ -39,6 +39,7 @@ const FollowMouse = () => {
   useEffect(() => {
     console.log("no-cursor effect", enabled)
     document.body.classList.toggle('no-cursor', enabled)
+    // se hace en un efecto porque el objeto document NO existe en el servidor, por eso no se hace en el cuerpo del componente
 
     return () => {
       document.body.classList.remove('no-cursor')
