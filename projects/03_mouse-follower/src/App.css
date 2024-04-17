@@ -3,5 +3,13 @@ body, .app{
   flex-direction: column;
   gap:1rem;
   place-items: center;
-  place-content: center;
+  height: 100vh;
+}
+
+.no-cursor{
+  cursor: none;
+}
+
+h1{
+  text-align: center;
 }
