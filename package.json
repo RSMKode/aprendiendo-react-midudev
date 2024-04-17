@@ -13,9 +13,6 @@
     "standard": "^17.1.0"
   },
   "eslintConfig": {
-    "extends": "standard",
-    "rules": {
-      "react/prop-types": "off"
-    }
+    "extends": "standard"
   }
 }
