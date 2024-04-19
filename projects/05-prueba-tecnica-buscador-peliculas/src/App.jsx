@@ -37,10 +37,6 @@ function App () {
   const { movies, getMovies, loading, errorMessage } = useMovies({ query })
   console.log({ query, movies, errorMessage })
 
-  // const { responseData } = useMovies({ query })
-  // const { movies } = responseData
-  // const { errorMessage } = responseData
-
   const handleSubmit = (event) => {
     // Evitar que el formulario recargue la página
     event.preventDefault()
