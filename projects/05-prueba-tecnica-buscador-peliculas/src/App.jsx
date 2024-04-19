@@ -14,7 +14,6 @@ function useQuery () {
     // Evitar que se ejecute la validacion en el primer render
     if (isFirstInput.current) {
       isFirstInput.current = query === ''
-      console.log({ isFirstInput })
       return
     }
 
@@ -35,13 +34,17 @@ function useQuery () {
 
 function App () {
   const { query, updateQuery, inputError } = useQuery()
+  const { movies, getMovies, loading, errorMessage } = useMovies({ query })
+  console.log({ query, movies, errorMessage })
 
-  const { responseData } = useMovies({ query })
-  // console.log({ query, responseData })
+  // const { responseData } = useMovies({ query })
+  // const { movies } = responseData
+  // const { errorMessage } = responseData
 
   const handleSubmit = (event) => {
     // Evitar que el formulario recargue la página
     event.preventDefault()
+    getMovies()
   }
 
   const handleChange = (event) => {
@@ -51,10 +54,6 @@ function App () {
     if (newQuery.startsWith(' ')) return
     updateQuery(newQuery)
   }
-
-  const { movies } = responseData
-
-  const { errorMessage } = responseData
 
   return (
     <main className='flex flex-col items-center w-full max-w-5xl min-h-screen gap-4 p-4 mx-auto'>
@@ -77,7 +76,9 @@ function App () {
       </header>
       {movies && movies.length > 0 && <hr className='w-full' />}
       {errorMessage && <p className='text-red-600'>{errorMessage}</p>}
-      <MovieContainer movies={movies} />
+      {loading
+        ? <p>Cargando...</p>
+        : <MovieContainer movies={movies} />}
     </main>
   )
 }

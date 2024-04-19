@@ -1,0 +1,29 @@
+import { useState, useEffect } from 'react'
+
+import { getMovies } from '../services/getMovies'
+
+// import withResults from '../mocks/with-results.json'
+// import withoutResults from './mocks/without-results.json'
+
+export function useMovies ({ query }) {
+  const [responseData, setResponseData] = useState(null)
+  useEffect(() => {
+    getMovies(query).then(data => setResponseData(data))
+  }, [query])
+
+  // const movies = withResults.Search
+  const movies = responseData?.Search ?? []
+  const errorMessage = query === '' ? '' : responseData?.Error
+
+  const mappedMovies = movies?.map(movie => ({
+    imdbID: movie.imdbID,
+    title: movie.Title,
+    year: movie.Year,
+    poster: movie.Poster,
+    type: movie.Type
+  }))
+
+  const mappedResponseData =
+ { response: responseData?.Response, movies: mappedMovies, errorMessage, totalResults: responseData?.totalResults }
+  return { responseData: mappedResponseData }
+}

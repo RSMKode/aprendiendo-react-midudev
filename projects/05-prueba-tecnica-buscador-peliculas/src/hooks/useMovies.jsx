@@ -1,29 +1,26 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import { searchMovies } from '../services/movies'
 
-import { getMovies } from '../services/getMovies'
-
-// import responseMovies from '../mocks/with-results.json'
-// import withoutResults from './mocks/without-results.json'
+// import withResults from '../mocks/with-results.json'
+// import withoutResults from '../mocks/without-results.json'
 
 export function useMovies ({ query }) {
-  const [responseData, setResponseData] = useState(null)
-  useEffect(() => {
-    getMovies(query).then(data => setResponseData(data))
-  }, [query])
+  const [movies, setMovies] = useState([])
+  const [errorMessage, setErrorMessage] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  // const movies = responseMovies.Search
-  const movies = responseData?.Search ?? []
-  const errorMessage = query === '' ? '' : responseData?.Error
+  const getMovies = async () => {
+    try {
+      setLoading(true)
+      const { movies: newMovies, errorMessage } = await searchMovies({ query })
+      setMovies(newMovies)
+      setErrorMessage(errorMessage)
+    } catch (error) {
+      setErrorMessage(error.message)
+    } finally {
+      setLoading(false)
+    }
+  }
 
-  const mappedMovies = movies?.map(movie => ({
-    imdbID: movie.imdbID,
-    title: movie.Title,
-    year: movie.Year,
-    poster: movie.Poster,
-    type: movie.Type
-  }))
-
-  const mappedResponseData =
- { response: responseData?.Response, movies: mappedMovies, errorMessage, totalResults: responseData?.totalResults }
-  return { responseData: mappedResponseData }
+  return { movies, getMovies, loading, errorMessage }
 }
