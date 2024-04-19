@@ -55,6 +55,7 @@ function App () {
     // Si el primer caracter es un espacio, no se permite
     if (newQuery.startsWith(' ')) return
     updateQuery(newQuery)
+    getMovies({ query: newQuery })
   }
 
   useEffect(() => console.log('new getMovies'), [getMovies])
