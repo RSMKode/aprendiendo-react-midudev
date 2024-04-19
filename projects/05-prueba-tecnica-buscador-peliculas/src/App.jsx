@@ -1,9 +1,8 @@
-import { useState, useEffect, useRef } from 'react'
 import './App.css'
-
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useMovies } from './hooks/useMovies'
-
 import MovieContainer from './components/MovieContainer'
+import debounce from 'just-debounce-it'
 
 function useQuery () {
   const [query, setQuery] = useState('')
@@ -34,10 +33,14 @@ function useQuery () {
 
 function App () {
   const [sort, setSort] = useState(false)
-
   const { query, updateQuery, inputError } = useQuery()
   const { movies, getMovies, loading, errorMessage } = useMovies({ query, sort })
   // console.log({ query, movies, errorMessage })
+
+  const debouncedGetMovies = useCallback(debounce(query => {
+    console.log(query)
+    getMovies({ query })
+  }, 500), [getMovies])
 
   const handleSubmit = (event) => {
     // Evitar que el formulario recargue la página
@@ -55,10 +58,8 @@ function App () {
     // Si el primer caracter es un espacio, no se permite
     if (newQuery.startsWith(' ')) return
     updateQuery(newQuery)
-    getMovies({ query: newQuery })
+    debouncedGetMovies(newQuery)
   }
-
-  useEffect(() => console.log('new getMovies'), [getMovies])
 
   return (
     <main className='flex flex-col items-center w-full max-w-5xl min-h-screen gap-4 p-4 mx-auto'>
