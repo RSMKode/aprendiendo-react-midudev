@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import './App.css'
 
-import { useMappedMovies } from './hooks/useMappedMovies'
-import { useMovieData } from './hooks/useMovieData'
+import { useMovies } from './hooks/useMovies'
 
 import MovieContainer from './components/MovieContainer'
 
@@ -13,11 +12,11 @@ function useQuery () {
 
   useEffect(() => {
     // Evitar que se ejecute la validacion en el primer render
-    if (isFirstInput.current) {
-      isFirstInput.current = query === ''
-      console.log({ isFirstInput })
-      return
-    }
+    // if (isFirstInput.current) {
+    //   isFirstInput.current = query === ''
+    //   console.log({ isFirstInput })
+    //   return
+    // }
 
     if (query === '') {
       setInputError('Debes ingresar un término de búsqueda')
@@ -25,7 +24,9 @@ function useQuery () {
     }
     if (query.length < 3) {
       setInputError('Debes ingresar al menos 3 caracteres')
+      return
     }
+
     setInputError('')
   }, [query])
 
@@ -35,8 +36,8 @@ function useQuery () {
 function App () {
   const { query, updateQuery, inputError } = useQuery()
 
-  const { responseData } = useMovieData({ query })
-  console.log({ query, responseData })
+  const { responseData } = useMovies({ query })
+  // console.log({ query, responseData })
 
   const handleSubmit = (event) => {
     // Evitar que el formulario recargue la página
@@ -51,10 +52,9 @@ function App () {
     updateQuery(newQuery)
   }
 
-  const movieData = responseData?.movies
-  const { movies } = useMappedMovies({ movies: movieData })
+  const { movies } = responseData
 
-  const errorMessage = responseData?.error
+  const { errorMessage } = responseData
 
   return (
     <main className='flex flex-col items-center w-full max-w-5xl min-h-screen gap-4 p-4 mx-auto'>
@@ -75,8 +75,8 @@ function App () {
           <button type='submit' className='px-4 py-1 text-white transition-all rounded shadow-md active:scale-95 border border-transparent bg-slate-700 hover:border-current w-fit hover:shadow-current hover:[box-shadow:_0_0_5px_var(--tw-shadow-color)]'>Buscar</button>
         </form>
       </header>
-      {errorMessage && <p className='text-red-600'>{errorMessage}</p>}
       {movies && movies.length > 0 && <hr className='w-full' />}
+      {errorMessage && <p className='text-red-600'>{errorMessage}</p>}
       <MovieContainer movies={movies} />
     </main>
   )
