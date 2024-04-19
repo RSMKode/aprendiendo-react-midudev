@@ -12,11 +12,11 @@ function useQuery () {
 
   useEffect(() => {
     // Evitar que se ejecute la validacion en el primer render
-    // if (isFirstInput.current) {
-    //   isFirstInput.current = query === ''
-    //   console.log({ isFirstInput })
-    //   return
-    // }
+    if (isFirstInput.current) {
+      isFirstInput.current = query === ''
+      console.log({ isFirstInput })
+      return
+    }
 
     if (query === '') {
       setInputError('Debes ingresar un término de búsqueda')
