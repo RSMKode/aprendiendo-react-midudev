@@ -1,10 +1,10 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useMemo } from 'react'
 import { searchMovies } from '../services/movies'
 
 // import withResults from '../mocks/with-results.json'
 // import withoutResults from '../mocks/without-results.json'
 
-export function useMovies ({ query }) {
+export function useMovies ({ query, sort }) {
   const [movies, setMovies] = useState([])
   const [errorMessage, setErrorMessage] = useState('')
   const [loading, setLoading] = useState(false)
@@ -25,5 +25,12 @@ export function useMovies ({ query }) {
     }
   }
 
-  return { movies, getMovies, loading, errorMessage }
+  const sortedMovies = useMemo(() => {
+    console.log('memoSortedMovies')
+    return sort
+      ? [...movies].sort((a, b) => a.title.localeCompare(b.title))
+      : movies
+  }, [sort, movies])
+
+  return { movies: sortedMovies, getMovies, loading, errorMessage }
 }

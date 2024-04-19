@@ -33,14 +33,20 @@ function useQuery () {
 }
 
 function App () {
+  const [sort, setSort] = useState(false)
+
   const { query, updateQuery, inputError } = useQuery()
-  const { movies, getMovies, loading, errorMessage } = useMovies({ query })
-  console.log({ query, movies, errorMessage })
+  const { movies, getMovies, loading, errorMessage } = useMovies({ query, sort })
+  // console.log({ query, movies, errorMessage })
 
   const handleSubmit = (event) => {
     // Evitar que el formulario recargue la página
     event.preventDefault()
     getMovies()
+  }
+
+  const handleSort = () => {
+    setSort(!sort)
   }
 
   const handleChange = (event) => {
@@ -67,7 +73,13 @@ function App () {
             />
             {inputError && <span className='text-red-600'>{inputError}</span>}
           </label>
-          <button type='submit' className='px-4 py-1 text-white transition-all rounded shadow-md active:scale-95 border border-transparent bg-slate-700 hover:border-current w-fit hover:shadow-current hover:[box-shadow:_0_0_5px_var(--tw-shadow-color)]'>Buscar</button>
+          <div className='flex items-center justify-between gap-2'>
+            <button type='submit' className='px-4 py-1 text-white transition-all rounded shadow-md active:scale-95 border border-transparent bg-slate-700 hover:border-current w-fit hover:shadow-current hover:[box-shadow:_0_0_5px_var(--tw-shadow-color)]'>Buscar</button>
+            <label className='flex gap-2'>
+              <span className=''>Sort</span>
+              <input type='checkbox' checked={sort} onChange={handleSort} />
+            </label>
+          </div>
         </form>
       </header>
       {movies && movies.length > 0 && <hr className='w-full' />}
