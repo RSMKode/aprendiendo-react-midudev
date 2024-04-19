@@ -42,7 +42,7 @@ function App () {
   const handleSubmit = (event) => {
     // Evitar que el formulario recargue la página
     event.preventDefault()
-    getMovies()
+    getMovies({ query })
   }
 
   const handleSort = () => {
@@ -56,6 +56,8 @@ function App () {
     if (newQuery.startsWith(' ')) return
     updateQuery(newQuery)
   }
+
+  useEffect(() => console.log('new getMovies'), [getMovies])
 
   return (
     <main className='flex flex-col items-center w-full max-w-5xl min-h-screen gap-4 p-4 mx-auto'>
