@@ -4,9 +4,9 @@ header {
   flex-direction: column;
   place-content: center;
   width: 100%;
-  gap: 1rem;
-}
-
-header h1 {
-  place-self: center;
+  
+  h1 {
+    place-self: center;
+    gap: 1rem;
+  }
 }

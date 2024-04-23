@@ -1,4 +1,4 @@
-footer {
+.footer {
   position: fixed;
   bottom: 0.5rem;
   left: 1rem;
@@ -13,16 +13,16 @@ footer {
   border-radius: 32px;
   opacity: 0.95;
   backdrop-filter: blur(7px);
-}
 
-.footer span {
-  font-size: 14px;
-  color: #09f;
-  opacity: 0.8;
-}
+  span {
+    font-size: 14px;
+    color: #09f;
+    opacity: 0.8;
+  }
 
-.footer h4,
-.footer h5 {
-  margin: 0;
-  display: flex;
+  h4,
+  h5 {
+    margin: 0;
+    display: flex;
+  }
 }

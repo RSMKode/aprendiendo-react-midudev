@@ -5,6 +5,8 @@ import { Products } from './components/Products/Products'
 import { Footer } from './components/Footer/Footer'
 import { IS_DEVELOPMENT } from '../config'
 import { useFilters } from './hooks/useFilters'
+import { Cart } from './components/Cart/Cart'
+import { CartProvider } from './context/cart'
 
 console.log({ IS_DEVELOPMENT, mode: import.meta.env.MODE })
 
@@ -15,7 +17,10 @@ function App () {
   return (
     <main>
       <Header />
-      <Products products={filteredProducts} />
+      <CartProvider>
+        <Cart />
+        <Products products={filteredProducts} />
+      </CartProvider>
       {IS_DEVELOPMENT && <Footer />}
     </main>
   )
