@@ -1,0 +1,15 @@
+.filters {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  place-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.filters label {
+  font-weight: 500;
+  display: inline-flex;
+  gap: 0.5rem;
+  place-items: center;
+}

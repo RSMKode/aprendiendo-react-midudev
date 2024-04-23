@@ -1,0 +1,12 @@
+header {
+
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+  width: 100%;
+  gap: 1rem;
+}
+
+header h1 {
+  place-self: center;
+}
