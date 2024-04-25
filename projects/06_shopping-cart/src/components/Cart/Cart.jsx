@@ -1,15 +1,12 @@
 import './Cart.css'
-import { useId, useContext } from 'react'
-import { ClearCartIcon, RemoveFromCartIcon, CartIcon } from '../Icons'
-
-import { CartContext } from '../../context/cart'
+import { useId } from 'react'
+import { ClearCartIcon, CartIcon } from '../Icons'
+import { useCart } from '../../hooks/useCart'
 
 function CartItem ({ product }) {
   const { title, price, thumbnail, quantity } = product
+  const { addToCart, removeFromCart } = useCart()
 
-  const miau = useContext(CartContext)
-
-  console.log({ miau })
   return (
     <article className='cart-item'>
       <header>
@@ -20,13 +17,15 @@ function CartItem ({ product }) {
       </section>
       <footer>
         <small>Qty: {quantity}</small>
-        <button>+</button>
+        <button onClick={() => addToCart(product)}>+</button>
+        <button onClick={() => removeFromCart(product)}>-</button>
       </footer>
     </article>
   )
 }
 
 export function Cart () {
+  const { cart, clearCart } = useCart()
   const cartCheckboxId = useId('cart-')
 
   return (
@@ -36,15 +35,22 @@ export function Cart () {
         <input id={cartCheckboxId} type='checkbox' hidden />
       </label>
       <aside className='cart'>
+        <header>
+          <button onClick={clearCart}>
+            <ClearCartIcon />
+            {/* Clear Cart */}
+          </button>
+        </header>
         <ul>
-          <li>
-            <CartItem product={{ title: 'Laptop', price: 1000, thumbnail: 'https://cdn.dummyjson.com/product-images/8/thumbnail.jpg', quantity: 1 }} />
-          </li>
-          <hr />
-          <li>
-            <CartItem product={{ title: 'Laptop', price: 1000, thumbnail: 'https://cdn.dummyjson.com/product-images/8/thumbnail.jpg', quantity: 1 }} />
-          </li>
-          <hr />
+          {cart.length === 0 && <li>Cart is empty</li>}
+          {cart.length > 0 &&
+            cart.map((product) => (
+              <li key={product.id}>
+                <CartItem
+                  product={product}
+                />
+              </li>
+            ))}
         </ul>
       </aside>
     </>

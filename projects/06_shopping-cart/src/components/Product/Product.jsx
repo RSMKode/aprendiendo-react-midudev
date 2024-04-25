@@ -1,7 +1,15 @@
 import './Product.css'
-import { AddToCartIcon } from '../Icons'
+import { AddToCartIcon, RemoveFromCartIcon } from '../Icons'
+import { useCart } from '../../hooks/useCart'
 
 export function Product ({ product }) {
+  const { cart, addToCart, removeFromCart } = useCart()
+
+  const checkProductInCart = (product) =>
+    cart.some((item) => item.id === product.id)
+
+  const isProductInCart = checkProductInCart(product)
+
   const { title, price, thumbnail } = product
 
   return (
@@ -14,8 +22,17 @@ export function Product ({ product }) {
               <p>{description}</p>
             </div> */}
       <div>
-        <button>
-          <AddToCartIcon />
+        <button
+          style={{ backgroundColor: isProductInCart && 'slategray' }}
+          onClick={() => {
+            isProductInCart
+              ? removeFromCart(product)
+              : addToCart(product)
+          }}
+        >
+          {isProductInCart
+            ? <RemoveFromCartIcon />
+            : <AddToCartIcon />}
         </button>
       </div>
     </article>

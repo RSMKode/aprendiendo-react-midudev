@@ -9,10 +9,17 @@
   right: 0px;
   top: 0px;
   width: 200px;
+  max-height: 80%;
+  overflow-y: auto;
   border-bottom-left-radius: 20px;
   z-index: 1;
   transition: all 0.5s ease;
   pointer-events: none;
+
+  header {
+    display: flex;
+    place-items: center;
+  }
 
   ul {
     display: flex;
@@ -20,6 +27,12 @@
     gap: 0.5rem;
   }
 
+  button {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0.5rem;
+    width: fit-content;
+  }
   article.cart-item {
     display: flex;
     flex-direction: column;
@@ -28,6 +41,7 @@
     img {
       aspect-ratio: 16/9;
       width: 100%;
+      object-fit: cover;
     }
 
     footer {
@@ -36,9 +50,6 @@
       justify-content: center;
       align-items: center;
 
-      button {
-        padding: 0.5rem;
-      }
     }
   }
 }
@@ -69,7 +80,10 @@
   top: 0.5rem;
   transition: all 0.3s ease;
   z-index: 9999;
+  border: 1px solid transparent;
 }
 .cart-button:hover {
   scale: 1.1;
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
 }

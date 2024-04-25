@@ -12,6 +12,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  --accent-color: #ff5b8c;
 }
 
 *,
@@ -20,6 +22,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  /* scrollbar-gutter: stable; */
 }
 
 #root {
@@ -34,9 +37,19 @@ body {
   margin: 0;
   display: flex;
   place-items: start;
-  min-width: 320px;
+  width: 100dvw;
   min-height: 100vh;
+  accent-color: var(--accent-color);
+
+  ::selection {
+    background-color: var(--accent-color);
+    color: #fcfcfc;
+  }
 }
+
+/* option:checked, option:hover {
+    background-color: var(--accent-color);
+} */
 
 button {
   border-radius: 8px;
@@ -50,7 +63,8 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: var(--accent-color);
+  color: var(--accent-color);
 }
 button:focus,
 button:focus-visible {

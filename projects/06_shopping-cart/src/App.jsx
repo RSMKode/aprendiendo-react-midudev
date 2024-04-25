@@ -15,14 +15,14 @@ function App () {
   const filteredProducts = filterProducts({ products: initialProducts })
 
   return (
-    <main>
-      <Header />
-      <CartProvider>
+    <CartProvider>
+      <main>
+        <Header />
         <Cart />
         <Products products={filteredProducts} />
-      </CartProvider>
-      {IS_DEVELOPMENT && <Footer />}
-    </main>
+        {IS_DEVELOPMENT && <Footer />}
+      </main>
+    </CartProvider>
   )
 }
 
