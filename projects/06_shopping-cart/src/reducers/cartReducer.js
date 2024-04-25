@@ -44,7 +44,7 @@ export const cartReducer = (state, action) => {
       break
     }
     case CART_ACTION_TYPES.CLEAR_CART: {
-      newCart = cartInitialState
+      newCart = []
       break
     }
     default:
